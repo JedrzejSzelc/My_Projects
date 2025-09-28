@@ -3,7 +3,7 @@
 |<ins>Variable:</ins>|<ins>Value:</ins>|
 |---|---|
 |Author (that would be me...)|Jędrzej (Andrew) Szelc|
-|Date (file creation, not me being born...)|28.09.2025|
+|Date (of file creation. Not my date of birth...)|28.09.2025|
 
 # 2. This repository...
 
