@@ -1,0 +1,14 @@
+<?xml version="1.0" ?><Car_Owners_and_Their_Cars>
+    <Single_Record User_Id="LR535" User_Country="Taiwan">
+        <User_Info User_Name="Lisa" User_Surname="Green" User_Age="63" User_Email="paulroberson@patrick-bowers.com" User_IBAN="GB40SVUP98272789375981"/>
+        <Car_Info Car_Manufacturer="King-Adams" Car_Colour="Lime" Car_Engine_Capacity="XXXXXXXXXX" Car_Manufacturer_Webpage="http://hines.com/" Car_Rented="True"/>
+    </Single_Record>
+    <Single_Record User_Id="IP895" User_Country="French Guiana">
+        <User_Info User_Name="Alexandra" User_Surname="Yoder" User_Age="21" User_Email="lisa18@clark.com" User_IBAN="GB89NMGN14045614668004"/>
+        <Car_Info Car_Manufacturer="Reid Ltd" Car_Colour="NavajoWhite" Car_Engine_Capacity="XXXXXXXXXX" Car_Manufacturer_Webpage="https://www.jacobson.net/" Car_Rented="False"/>
+    </Single_Record>
+    <Single_Record User_Id="GM411" User_Country="Chile">
+        <User_Info User_Name="Carlos" User_Surname="Lang" User_Age="55" User_Email="daniel52@tucker-herrera.biz" User_IBAN="GB21YDHY54078041330372"/>
+        <Car_Info Car_Manufacturer="Singh-Walker" Car_Colour="Red" Car_Engine_Capacity="XXXXXXXXXX" Car_Manufacturer_Webpage="http://www.coffey.com/" Car_Rented="False"/>
+    </Single_Record>
+</Car_Owners_and_Their_Cars>

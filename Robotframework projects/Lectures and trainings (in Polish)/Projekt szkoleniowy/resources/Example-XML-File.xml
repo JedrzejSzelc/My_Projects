@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="yes"?>
+<Car_Owners_and_Their_Cars>
+    <Single_Record User_Id="BW132" User_Country="UK">
+        <User_Info User_Name="Anna" User_Surname="Doe" User_Age="45" User_Email="anna@annadoe.uk" User_IBAN="UK9704635514142231695649"/>
+        <Car_Info Car_Manufacturer="Ford" Car_Colour="Blue" Car_Engine_Capacity="1300" Car_Manufacturer_Webpage="http://www.ford.co.uk" Car_Rented="True"/>
+    </Single_Record>
+    <Single_Record User_Id="ZX776" User_Country="Italy">
+        <User_Info User_Name="Peter" User_Surname="Anderson" User_Age="72" User_Email="peter@anderson.it" User_IBAN="IT2040237090181377762644"/>
+        <Car_Info Car_Manufacturer="Fiat" Car_Colour="Red" Car_Engine_Capacity="2000" Car_Manufacturer_Webpage="http://www.fiat.it" Car_Rented="False"/>
+    </Single_Record>
+    <Single_Record User_Id="KH498" User_Country="Poland">
+        <User_Info User_Name="Andrew" User_Surname="Smith" User_Age="27" User_Email="andrew@andrew.pl" User_IBAN="PL9098723287806753363866"/>
+        <Car_Info Car_Manufacturer="Mercedes" Car_Colour="Black" Car_Engine_Capacity="3900" Car_Manufacturer_Webpage="http://www.mercedes.de" Car_Rented="True"/>
+    </Single_Record>
+</Car_Owners_and_Their_Cars>
