@@ -1,0 +1,1085 @@
+---
+title: "Spis treści"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+---
+
+---
+title: "Zaliczenie przedmiotu 'Analiza danych w R'"
+subtitle: "Studia podyplomowe: 'Metody Statystycznej Analizy Danych - edycja IX'"
+author: "Jędrzej Szelc"
+date: "2024-04-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+***
+
+## Zestaw zadań 1
+
+### Zestaw 1 - Zadanie numer 4
+
+Oryginalna treść zadania:
+
+*"Stworzyc ramke danych o nazwie osoby, ktora sklada sie z siedmiu obserwacji i dwoch zmiennych: wzrost i waga. Uzupelnic ja danymi wg wlasnego uznania (ale racjonalnie!). Nastepnie, z wykorzystaniem funkcji: str(), ktora pozwala na poznanie struktury obiektu, head(), ktora pozwala na poznanie kilku pierwszych obiektow w zbiorze, tail(), ktora pozwala na poznanie kilku ostatnich obiektow w zbiorze, dim(), ktora pozwala na poznanie wymiaru rozwazanego obiektu, oraz summary() ktora pozwala na wyznaczenie statystyk opisowych w obiekcie, przeprowadzic podstawowa inspekcje danych."*
+
+Rozwiązanie zadania:
+
+```{r zestaw_1_zadanie_4}
+### Import modułów, bibliotek oraz konfiguracja
+library(tibble)
+
+### Wektory do ramki danych
+wektor_wzrost <- c(182, 168, 174, 193, 181, 177, 167)
+wektor_waga <- c(87, 63, 71, 97, 87, 92, 78)
+
+### Tworzenie ramki danych
+ramka_danych_osoby <- data.frame(Wzrost = wektor_wzrost, 
+                                 Waga = wektor_waga)
+
+### Podstawowe inspekcje danych z wykorzystaniem funkcji:
+# str()
+str(ramka_danych_osoby)
+
+# head(,3)
+head(ramka_danych_osoby, 3)
+
+# tail(,3)
+tail(ramka_danych_osoby, 3)
+
+# dim()
+dim(ramka_danych_osoby)
+
+# summary()
+summary(ramka_danych_osoby)
+```
+
+***
+
+### Zestaw 1 - Zadanie numer 5
+
+Oryginalna treść zadania:
+
+*"Wykorzystaj funkcje rownames() do nadania imion obiektom w ramce osoby."*
+
+Rozwiązanie zadania:
+
+```{r zestaw_1_zadanie_5}
+rownames(ramka_danych_osoby) <- c("Jędrzej",
+                                  "Katarzyna",
+                                  "Anna",
+                                  "Bogdan",
+                                  "Wiesław",
+                                  "Jan",
+                                  "Piotr")
+ramka_danych_osoby
+```
+
+***
+
+### Zestaw 1 - Zadanie numer 6
+
+Oryginalna treść zadania:
+
+*"Stworzyc obiekt BMI, ktory bedzie przechowywal informacje o wartosciach BMI (ang. body mass index) Wyswietl tylko te osoby, ktorych BMI przyjmuje wartosc wieksza niz 30. Ile jest osob o BMI≤25"*
+
+*"Uwaga: Wzor, w jaki wyznacza sie BMI, znajdziesz w sieci. Pomysl, jak do rozwiazania zadania wykorzystac funkcje sum() oraz instrukcje warunkowe?"*
+
+Rozwiązanie zadania:
+
+```{r zestaw_1_zadanie_6}
+ramka_danych_osoby <- transform(ramka_danych_osoby, 
+                                BMI = round(Waga/(Wzrost/100)^2,2))
+ramka_danych_osoby
+```
+
+***
+
+### Zestaw 1 - Zadanie numer 7
+
+Oryginalna treść zadania:
+
+*"W pakiecie datasets znajduje sie wiele ciekawych zbiorow danych, a w szczegolnosci ramki danych mtcars i Orange."*
+
+Wstępna konfiguracja:
+
+```{r zestaw_1_zadanie_7}
+### Import modułów, bibliotek oraz konfiguracja
+library(datasets)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(tidyverse)
+```
+
+***
+
+#### Zestaw 1 - Podpunkt 7.a
+
+Oryginalna treść podpunktu:
+
+*"Wykorzystaj komendy str() oraz help(), by dowiedziec sie wiecej o tych zbiorach danych. Napisz w kilku slowach, co opisuja w/w pliki z danymi."*
+
+Rozwiązanie podpunktu:
+
+Funkcja 'str()' umożliwia wyświetlenia podsumowania dot. struktury danego obiektu w języku, [1]. W ślad za [1], funkcja 'str()' nadaje się najlepiej do analiz wszelkiego rodzaju struktur danych. Funkcja 'str()' różni się od 'summary()' tym, że 'str()' zwraca skrótowe podsumowanie, [1].
+
+Funkcja 'help()', podobnie jak operator '?' umożliwiają w Języku R dostęp do dokumentacji technicznej danej funkcji, datasety lub obiektu, [2]. W przypadku korzystania z IDE R-Studio, wywołanie funkcji 'help()' lub operatora '?' skutkuje wyświetleniem dokumentacji w oknie pomocy R-Studio.
+
+```{r}
+str(mtcars)
+```
+
+Po użyciu zbioru danych 'mtcars' jako argumentu wejściowego funkcji 'str()', stwierdzam, że 'mtcars' to ramka danych o 11 kolumnach (zmiennych/variables) o długości 32 rekordów każda. Wszystkie kolumny są typu numerycznego (numerical), a co za tym idzie, dane w tych kolumnach są również typu numerycznego. Powyższe informacje są zgodne z dokumentacją techniczną ww. zbioru danych, [3].
+
+```{r}
+help(mtcars)
+```
+
+Po użyciu zbioru danych 'mtcars' jako argumentu wejściowego funkcji 'help()', otrzymałem w oknie 'Help' środowiska R-Studio szczegółową dokumentację techniczną ww. zbioru danych. W dokumentacji widzę m.in. opis zbioru danych, wskazówki dot. jego struktury (formatu), pochodzenie danych zawartych w ww. zbiorze oraz przykłady jego zastosowania.
+
+```{r}
+str(Orange)
+```
+
+Po użyciu zbioru danych 'Orange' jako argumentu wejściowego funkcji 'str()', stwierdzam, że 'Orange' to NIE ramka danych, lecz klasa o 3 kolumnach (zmiennych/variables) o długości 35 rekordów każda. Wszystkie kolumny są typu numerycznego (numerical), a co za tym idzie, dane w tych kolumnach są również typu numerycznego. 
+
+Klasa 'Orange' jest struktury wektora: c('nfnGroupedData', 'nfGroupedData', 'groupedData', 'data.frame'), który zawiera wspomniane kolumny z danymi (rekordami). Wygląda na to, że 'Orange' to rodzaj specjalizowanej klasy danych. Kolumna 'Tree' to uporządkowany 'factor'. Powyższe informacje są zgodne z dokumentacją techniczną ww. klasy, [4].
+
+```{r}
+help(Orange)
+```
+
+Po użyciu zbioru danych 'Orange' jako argumentu wejściowego funkcji 'help()', otrzymałem w oknie 'Help' środowiska R-Studio szczegółową dokumentację techniczną ww. klasy danych. W dokumentacji widzę m.in. opis klasy danych, wskazówki dot. jej struktury (formatu), pochodzenie danych zawartych w ww. klasie oraz przykłady jej zastosowania.
+
+***
+
+#### Zestaw 1 - Podpunkt 7.b
+
+Oryginalna treść podpunktu:
+
+*"Wykorzystujac instrukcje warunkowe, wyswietl wylacznie auta posiadajace 6 cylindrow."*
+
+Rozwiązanie podpunktu:
+
+Korzystam z bilbioteki 'dyplr', która umożliwia wygodne przetwarzanie danych, w tym m.in. ramek danych.
+
+```{r}
+mtcars %>% 
+  filter(cyl == 6)
+```
+
+***
+
+#### Zestaw 1 - Podpunkt 7.c
+
+Oryginalna treść podpunktu:
+
+*"Jaka przecietna liczbe koni mechanicznych (zmienna hp) posiadaja auta o spalaniu (zmienna mpg) mniejszym niz 20."*
+
+Rozwiązanie podpunktu:
+
+Pod słowem 'przeciętne' rozumiem 'średnie' w znaczeniu średniej arytmetycznej. Jako 'mniejsze niż' rozumiem 'mniejsze-nie-równe', czyli wykorzystam operator '<'.
+
+```{r}
+srednie_spalanie_zaokraglone <- round(mtcars %>% 
+  filter(mpg < 20) %>%
+  pull(hp) %>%
+  mean(),1)
+srednie_spalanie_zaokraglone
+```
+
+***
+
+#### Zestaw 1 - Podpunkt 7.d
+
+Oryginalna treść podpunktu:
+
+*"Narysuj histogram (formula hist()), dla wybranej zmiennej w zestawie danych Orange."*
+
+Rozwiązanie podpunktu:
+
+Korzystam z bilbioteki 'ggplot2', która umożliwia wygodną wizualizację danych.
+
+```{r}
+# Automatyczna szerokość 'bins' histogramów
+liczba_obserwacji_w_kolumnach <- nrow(Orange)
+wspolczynnik_normalizacji_szerokosci_bin <- 1.2
+szerokosc_bin_do_wszystkich_histogramow <- 
+  round(liczba_obserwacji_w_kolumnach/wspolczynnik_normalizacji_szerokosci_bin,0)
+
+# Pierwszy histogram
+Orange %>%
+  ggplot() +
+  geom_histogram(aes(x = circumference), 
+                 binwidth = szerokosc_bin_do_wszystkich_histogramow,
+                 fill = "palegreen3", colour = "blue", linewidth = 0.1) + 
+  theme_dark() +
+  labs(title = "20240331 - Histogram nr 1 dla zmiennej 'Obwód' w zbiorze danych 'Orange'", 
+       subtitlte = "Podtytuł dla Orange - 1", 
+       x = "Obwód [jednostki]", y = "Liczba wystąpień w zbiorze")
+
+# Drugi histogram - Histogram złożeniowy
+ggplot(Orange) +
+  geom_histogram(aes(x = age, fill = "Wiek"), 
+                 binwidth = szerokosc_bin_do_wszystkich_histogramow,
+                 alpha = 0.2, colour = "black") + 
+  geom_histogram(aes(x = circumference, fill = "Obwód"),
+                 binwidth = szerokosc_bin_do_wszystkich_histogramow,
+                 alpha = 0.2, colour = "black") + 
+  scale_fill_manual(values = c("red","blue")) + 
+  labs(title = "20240331 - Histogram nr 2 - Histogram złożeniowy", 
+     subtitlte = "Podtytuł dla Orange - 2", 
+     x = "Wartości zmiennej w danym zbiorze", 
+     y = "Liczba wystąpień zmiennej w danym zbiorze",
+     fill = "Legenda:")
+```
+
+***
+
+#### Zestaw 1 - Podpunkt 7.e
+
+Oryginalna treść podpunktu:
+
+*"Narysuj wykres pudelkowy z wasem (boxplot()) dla zmiennych mpg, hp i qsec ze zbioru mtcars."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+# Wykres pudełkowy dla trzech zmiennych
+okrojona_ramka <- mtcars %>%
+  select(mpg, hp, qsec)
+ggplot(stack(okrojona_ramka), aes(x = ind, y = values, col = ind)) +
+  geom_boxplot() +
+  theme_bw() +
+  geom_jitter(height = 0.2) +
+  labs(title = "20240401 - Wykres pudełkowy dla wybranych zmiennych 'mtcars'", 
+       x = "Nazwa zmiennej", 
+       y = "Wartości",
+       col = "Legenda:")
+
+# Wykres pudełkowy dla zmiennej: mpg
+nazwa_zmiennej <- "mpg"
+kolor_wykresu_i_punktów <- "red"
+tytul_wykresu <- paste("20240401 - Wykres pudełkowy dla zmiennej '",
+                      nazwa_zmiennej,"' w ramce danych 'mtcars'", sep="")
+mtcars %>%
+  select(mpg) %>%
+  ggplot(aes(x = "", y = mpg)) +
+  geom_boxplot(aes(y = mpg), color = kolor_wykresu_i_punktów) +
+  geom_jitter(height = 0.2, color = kolor_wykresu_i_punktów, size = 2) +
+  labs(title = tytul_wykresu,
+       x = nazwa_zmiennej,
+       y = "Wartości")
+
+# Wykres pudełkowy dla zmiennej: hp
+nazwa_zmiennej = "hp"
+kolor_wykresu_i_punktów = "darkgreen"
+tytul_wykresu = paste("20240401 - Wykres pudełkowy dla zmiennej '",
+                      nazwa_zmiennej,"' w ramce danych 'mtcars'", sep="")
+mtcars %>%
+  select(hp) %>%
+  ggplot(aes(x = "", y = hp)) +
+  geom_boxplot(aes(y = hp), color = kolor_wykresu_i_punktów) +
+  geom_jitter(height = 0.2, color = kolor_wykresu_i_punktów, size = 2) +
+  labs(title = tytul_wykresu,
+       x = nazwa_zmiennej,
+       y = "Wartości")
+
+# Wykres pudełkowy dla zmiennej: qsec
+nazwa_zmiennej = "qsec"
+kolor_wykresu_i_punktów = "blue"
+tytul_wykresu = paste("20240401 - Wykres pudełkowy dla zmiennej '",
+                      nazwa_zmiennej,"' w ramce danych 'mtcars'", sep="")
+mtcars %>%
+  select(qsec) %>%
+  ggplot(aes(x = "", y = qsec)) +
+  geom_boxplot(aes(y = qsec), color = kolor_wykresu_i_punktów) +
+  geom_jitter(height = 0.2, color = kolor_wykresu_i_punktów, size = 2) +
+  labs(title = tytul_wykresu,
+       x = nazwa_zmiennej,
+       y = "Wartości")
+```
+
+***
+
+### Zestaw 1 - Zadanie numer 8
+
+Oryginalna treść zadania:
+
+*"Swietnym narzedziem statystycznym dla psychologow jest pakiet psych, ktory miesci wiele potrzebnych i waznych dla nich funkcji."*
+
+***
+
+#### Zestaw 1 - Podpunkt 8.a
+
+Oryginalna treść podpunktu:
+
+*"zainstaluj ten pakiet, a nastepnie wczytaj go do pamieci (funkcja library())."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+library(psych)
+```
+
+***
+
+#### Zestaw 1 - Podpunkt 8.b
+
+Oryginalna treść podpunktu:
+
+*"W pakiecie psych istnieje funkcja describe. Postaraj sie, za jej pomoca, wyswietlic statytyski opisowe dla danych mtcars. Czym sie ona rozni od funkcji summary()."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+describe(mtcars)
+```
+
+W ślad za [6], funkcja 'describe()':\
+- opis ogólny: wykorzystywana do testów psychometrycznych i budowy skal psychologicznych,\
+- argument wejściowy: ramka danych lub matryca,\
+- argumenty wyjściowe dla każdej kolumny ramki danych: liczba elementów każdej kolumny, średnia, mediana (drugi kwartyl), średnie odchylenie bezwzględne, wartość minimalna, wartość maksymalna, zakres min-max, skośność, kurtoza, błąd standardowy.
+
+```{r}
+summary(mtcars)
+```
+W ślad za [7], funkcja 'summary()':\
+- opis ogólny: ogólna funkcja wbudowana służąca podsumowaniom,\
+- argument wejściowy: jakikolwiek obiekt R,\
+- argumenty wyjściowe dla każdej kolumny: wartość minimalna, pierwszy kwartyl, mediana (drugi kwartyl), średnia, trzeci kwartyl, wartość maksymalna.
+
+W mojej ocenie, główna różnica między funkcjami 'describe()' oraz 'summary()' jest taka, że 'describe()' zwraca większą liczbę parametrów opisowych, niż 'summary()'. Dodatkowo, 'describe()' jest dla mnie osobiście bardziej czytelna i umożliwia łatwiejsze porównywanie ze sobą kolumn. Stąd właśnie zaleta 'describe()' związana z budową skal.
+
+***
+
+### Zestaw 1 - Zadanie numer 9
+
+Oryginalna treść zadania:
+
+*"Na zajeciach uzywalismy funkcji sample(). Sluzy ona do losowania danych z pewnej proby. Argumenty tej funkcji to: x - mozliwe wyniki losowania, size - liczba wylosowanych liczb, replace - informacja, czy losujemy ze zwracaniem."*
+
+***
+
+#### Zestaw 1 - Podpunkt 9.a
+
+Oryginalna treść podpunktu:
+
+*"Wygeneruj 20 wynikow rzutu kostka do gry. Nazwij te zmienna proba. Ile wynosi srednia i odchylenie standardowe?"*
+
+Rozwiązanie podpunktu:
+
+```{r}
+proba <- sample(c(1,2,3,4,5,6), 20, replace = TRUE)
+odchylenie_standardowe <- sd(proba)
+print(paste("Odchylenie standardowe dla danej realizacji rzutu kostką zaokrąglone do 2 miejsce po przecinku:", round(odchylenie_standardowe,2)))
+srednia <- mean(proba)
+print(paste("Średnia dla danej realizacji rzutu kostką zaokrąglona do 2 miejsce po przecinku:", round(srednia,2)))
+```
+
+***
+
+#### Zestaw 1 - Podpunkt 9.b
+
+Oryginalna treść podpunktu:
+
+*"Wygeneruj 100 wynikow rzutu moneta. Nazwij te zmienna rzut (uwaga: jako 1 mozesz oznaczyc orla, jako 0 reszke). Ile wypadlo orlow?"*
+
+Rozwiązanie podpunktu:
+
+```{r}
+rzuty_moneta <- sample(c(0,1), 100, replace = TRUE)
+print(paste("Liczba 'Orłów', czyli wartości '1' dla danej realizacji rzutu monetą:",tabulate(rzuty_moneta)))
+```
+
+***
+
+#### Zestaw 1 - Podpunkt 9.c
+
+Oryginalna treść podpunktu:
+
+*"Wylosuj (bez zwracania) 10 liczb ze zbioru liczb naturalnych od 0 do 100."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+posortowane_liczby_naturalne <- sort(sample(0:100, 10, replace = TRUE))
+print(paste("Posortowane liczby naturalne dla danej realizacji:", 
+            paste(unlist(posortowane_liczby_naturalne), collapse=", ")))
+```
+
+***
+
+#### Zestaw 1 - Podpunkt 9.d
+
+Oryginalna treść podpunktu:
+
+*"Poznaj funkcje rnorm, rt oraz rpoisson. Na wymyslonym przez siebie przykladzie, zastosuj jedna z w/w funkcji."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+
+# Realizacja losowania przy użyciu funkcji rnorm
+liczba_elementow_zmiennej_losowej = 5000
+srednia_zmiennej_losowej = 5
+odchylenie_standardowe_zmiennej_losowej = 4
+rozklad_normalny <- rnorm(liczba_elementow_zmiennej_losowej,
+                          srednia_zmiennej_losowej,
+                          odchylenie_standardowe_zmiennej_losowej)
+
+# Test zgodności rozkładu zmiennej losowej z rozkładem normalnym
+print("Test zgodności rozkładu zmiennej losowej wygenerowanej przy użyciu 'rnorm()' z rozkładem normalnym Shapiro-Wilk:")
+output_testu_shapiro_wilk <- shapiro.test(rozklad_normalny)
+wartosc_p_value <- output_testu_shapiro_wilk[2]
+wartosc_p_value <- round(as.numeric(wartosc_p_value),3)
+wartosc_p_value
+print("Przyjmując poziom istotności alfa = 0.05, brak podstaw do stwierdzenia, że zmienna ma rozkład inny niż normalny. Brak podstaw do odrzucenia hipotezy zerowej testu Shapiro-Wilka.")
+
+# Histogram wektora wartości zmiennej losowej 
+dlugosc_wektora_rozklad_normalny <- length(rozklad_normalny)
+ggplot() + aes(rozklad_normalny) + 
+  geom_histogram(binwidth 
+                 = dlugosc_wektora_rozklad_normalny
+                 /liczba_elementow_zmiennej_losowej,                  
+                 fill = "palegreen3", colour = "blue", linewidth = 0.1) +
+  theme_dark() + 
+  labs(title = paste("20240401 - Wartości zmiennej losowej wygenerowane funkcją 'rnorm()':
+                     - liczba elementów zmiennej losowej:", liczba_elementow_zmiennej_losowej,"
+                     - średnia:", srednia_zmiennej_losowej,"
+                     - odchylenie standardowe:", odchylenie_standardowe_zmiennej_losowej,"
+                     - p-value dla testu Shapiro-Wilk :"
+                     ,wartosc_p_value), x = "Wartości zmiennej losowej", y="Liczebność w populacji")
+```
+
+***
+
+## Zestaw zadań 2
+
+### Zestaw 2 - Zadanie numer 2
+
+Oryginalna treść zadania:
+
+*"Stworz zestaw danych lista wg instrukcji ponizej:"*
+
+Rozwiązanie powyższego wymagania wstępnego:
+
+```{r}
+lista <- list(palenie = c(F,T,T,F,F,T,F),
+              cyfry = 0:9,
+              macierz = matrix(sample(1:5,16,replace = T),4,4),
+              tekst = c("Litwo", "ojczyzno", "moja", "ty",
+                         "jestes", "jak", "zdrowie"))
+```
+
+***
+
+#### Zestaw 2 - Podpunkt 2.a
+
+Oryginalna treść podpunktu:
+
+*"Odwolaj sie do obiektu tekst."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+# Odwoływanie się do elementów listy przy użyciu nazw elementów - metoda tekstowa
+print(lista["tekst"])
+print(lista[["tekst"]][2])
+print(lista[["tekst"]][2:5])
+
+# Odwoływanie się do elementów listy przy użyciu nazw elementów - metoda ze znakiem '$'
+print(lista$tekst)
+print(lista$tekst[2])
+print(lista$tekst[2:5])
+
+# Odwoływanie się do elementów listy przy użyciu indeksów
+print(lista[4])
+print(lista[[4]][2])
+print(lista[[4]][2:5])
+```
+
+***
+
+#### Zestaw 2 - Podpunkt 2.b
+
+Oryginalna treść podpunktu:
+
+*"Odwolaj sie do trzeciego elementu wektora cyfry."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+# Odwoływanie się do elementów listy przy użyciu nazw elementów - metoda tekstowa
+print(lista[["cyfry"]][3])
+
+# Odwoływanie się do elementów listy przy użyciu nazw elementów - metoda ze znakiem '$'
+print(lista$cyfry[3])
+
+# Odwoływanie się do elementów listy przy użyciu indeksów
+print(lista[[2]][3])
+```
+
+***
+
+#### Zestaw 2 - Podpunkt 2.c
+
+Oryginalna treść podpunktu:
+
+*"Odwolaj sie do trzeciej kolumny obiektu macierz."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+# Odwoływanie się do elementów listy przy użyciu nazw elementów - metoda tekstowa
+print(lista[["macierz"]][,3])
+
+# Odwoływanie się do elementów listy przy użyciu nazw elementów - metoda ze znakiem '$'
+print(lista$macierz[,3])
+
+# Odwoływanie się do elementów listy przy użyciu indeksów
+print(lista[[3]][,3])
+```
+
+***
+
+### Zestaw 2 - Zadanie numer 3
+
+Oryginalna treść zadania:
+
+*"Uzyj instrukcji if-else oraz funkcji ifesle() do sprawdzenia, czy dowolna liczba jest podzielna przez 5."*
+
+Rozwiązanie zadania:
+
+```{r}
+# Rozwiązanie z wykorzystaniem struktury warunkowej 'if-else', pętli 'for' oraz operatora zakresu/przynależności 'in'.
+liczby_do_sprawdzenia <- c(3,5,7,10,11,15,17,25,27,30)
+dlugosc_wektora_liczb <- length(liczby_do_sprawdzenia)
+
+for (iterator in 1:dlugosc_wektora_liczb)
+{
+  obecna_liczba_do_sprawdzenia <- liczby_do_sprawdzenia[iterator]
+  reszta_z_dzielenia_danej_liczby_przez_piec <- obecna_liczba_do_sprawdzenia %% 5  
+  
+  if(reszta_z_dzielenia_danej_liczby_przez_piec == 0)
+  {
+    print(paste("Liczba",obecna_liczba_do_sprawdzenia,"jest podzielna przez pięć."))
+  }else
+  {
+    print(paste("Liczba",obecna_liczba_do_sprawdzenia," nie jest podzielna przez pięć."))
+  }
+}
+
+# Rozwiązanie z wykorzystaniem struktury warunkowej 'else-if', pętli 'for' oraz operatora zakresu/przynależności 'in'.
+liczby_do_sprawdzenia <- c(3,5,7,10,11,15,17,25,27,30)
+dlugosc_wektora_liczb <- length(liczby_do_sprawdzenia)
+
+for (iterator in 1:dlugosc_wektora_liczb)
+{
+  obecna_liczba_do_sprawdzenia <- liczby_do_sprawdzenia[iterator]
+  reszta_z_dzielenia_danej_liczby_przez_piec <- obecna_liczba_do_sprawdzenia %% 5  
+  
+  if(reszta_z_dzielenia_danej_liczby_przez_piec == 0)
+  {
+    print(paste("Liczba",obecna_liczba_do_sprawdzenia,"jest podzielna przez pięć."))
+  }else if(reszta_z_dzielenia_danej_liczby_przez_piec != 0)
+  {
+    print(paste("Liczba",obecna_liczba_do_sprawdzenia," nie jest podzielna przez pięć."))
+  }
+}
+```
+
+***
+
+### Zestaw 2 - Zadanie numer 4
+
+Oryginalna treść zadania:
+
+*"Stworz zmienna ksiazki mowiaca o tym, ile dana osoba przeczytala ksiazek w ostatnim kwartale. Zrob to wg instrukcji ponizej:"*
+
+Rozwiązanie powyższego wymagania wstępnego:
+
+```{r}
+ksiazki <- sample(0:4, size = 25, replace = TRUE)
+```
+
+***
+
+#### Zestaw 2 - Podpunkt 4.a
+
+Oryginalna treść podpunktu:
+
+*"Ile wynosi srednia liczby przeczytanych ksiazek?"*
+
+Rozwiązanie podpunktu:
+
+```{r}
+srednia_liczba_przeczytanych_ksiazek <- mean(ksiazki)
+print(paste("Dla danej realizacji losowania funkcji 'sample()', średnia arytmetyczna liczby przeczytanych książek wynosi:", srednia_liczba_przeczytanych_ksiazek))
+```
+
+***
+
+#### Zestaw 2 - Podpunkt 4.b
+
+Oryginalna treść podpunktu:
+
+*"Ile osob przeczytalo przynajmniej trzy ksiazki?"*
+
+Rozwiązanie podpunktu:
+
+```{r}
+liczba_osob_ktore_przeczytaly_przynajmniej_trzy_ksiazki <- sum(ksiazki >= 3)
+print(paste("Dla danej realizacji losowania funkcji 'sample()', liczba osób, które przeczytały przynajmniej trzy książki wynosi (czyli: 'ksiazki >= 3'):", liczba_osob_ktore_przeczytaly_przynajmniej_trzy_ksiazki))
+```
+
+***
+
+#### Zestaw 2 - Podpunkt 4.c
+
+Oryginalna treść podpunktu:
+
+*"Ile osob nie przeczytalo zadnej ksiazki?"*
+
+Rozwiązanie podpunktu:
+
+```{r}
+liczba_osob_ktore_nie_przeczytaly_zadnej_ksiazki <- sum(ksiazki == 0)
+print(paste("Dla danej realizacji losowania funkcji 'sample()', liczba osób, które nie przeczytały żadnej książki wynosi (czyli: 'ksiazki == 0'):", liczba_osob_ktore_nie_przeczytaly_zadnej_ksiazki))
+```
+
+***
+
+#### Zestaw 2 - Podpunkt 4.d
+
+Oryginalna treść podpunktu:
+
+*"Stworz zmienna ksiazki2, ktora bedzie mowila o tym, czy ktos czyta ksiazki (przeczytal min. jedna). Uzyj do tego petli for."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+# Podpunkt: d - rozwiązanie z użyciem operatorów relacyjnych
+ksiazki2 <- (sum(ksiazki >= 1) >= 1)
+print(paste("Odpowiedź na pytanie, czy ktokolwiek w wylosowanej próbie przeczytał choćby jedną książkę brzmi:", ksiazki2))
+
+# Podpunkt: d - rozwiązanie z użyciem pętli 'for'
+dlugosc_wektora_ksiazki <- length(ksiazki)
+for (iterator in 1:dlugosc_wektora_ksiazki)
+{
+  obecny_element_wektora_ksiazki <- ksiazki[iterator]
+  if(obecny_element_wektora_ksiazki >= 1)
+  {
+    print(paste("Przynajmniej jedna osoba w wylosowanej próbie przeczytała choćby jedną książkę. Jest to osoba na",iterator," pozycji wektora 'ksiazki'. Przerywam dalsze szukanie!"))
+    break
+  }
+}
+```
+
+***
+
+### Zestaw 2 - Zadanie numer 5
+
+Oryginalna treść zadania:
+
+*"Stworz instrukcje warunkowa, ktora majac date (miesiac i rok) odpowie na pytanie o liczbe dni w tym miesiacu."*
+
+Rozwiązanie powyższego wymagania wstępnego:
+
+```{r}
+# Import modułów, bibliotek oraz konfiguracja
+library(lubridate)
+
+# Dane wejściowe
+numeric_rok <- 2011
+numeric_miesiac <- 9
+
+# Funkcja do obliczenia liczby dni w danym miesiącu
+oblicz_liczbe_dni <- function(rok, miesiac){
+
+    rok <- as.character(rok)
+    
+    if (miesiac < 10){
+      miesiac <- as.character(miesiac)
+      miesiac <- paste0("0",miesiac)
+    }else
+    {
+      miesiac <- as.character(miesiac)
+    }
+    
+    rok_miesiac <- paste0(rok,"-",miesiac,"-01")
+    
+    obiekt_daty <- as.Date(rok_miesiac, "%Y-%m-%d")
+    return(as.numeric(lubridate::days_in_month(obiekt_daty)))
+}
+
+# Wywołanie funkcji oblicz_liczbe_dni()
+liczba_dni <- oblicz_liczbe_dni(numeric_rok, numeric_miesiac)
+print(paste0("W ",numeric_miesiac,". miesiącu ",
+             numeric_rok," roku jest ", liczba_dni," dni."))
+```
+
+***
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Zestaw zadań 3
+
+### Zestaw 3 - Zadanie numer 2
+
+Oryginalna treść zadania:
+
+*"Wśród udostępnionych plików jest plik o nazwie budzety2005. Proszę go wczytać - zmienne jakościowe proszę wgrać jako faktory. Wykorzystując znane funkcje (np. str(), head() i summary()), spróbuj szybko zapoznać się z tym zestawem danych."*
+
+*"Na początku proszę zastanowić się, co oznacza zmienna townsize - jeśli to konieczne zmienić jej poziomy (automatycznie są one alfabetyczne, a to chyba nie jest dobry wybór)."*
+
+*"Następnie, z wykorzystaniem odpowiednich funkcji pakietu dplyr, proszę wykonać kolejne polecenia:"*
+
+Rozwiązanie powyższego wymagania wstępnego:
+
+```{r}
+### Import modułów oraz bibliotek
+library(plyr)
+
+### Import plików danych, wstępna analiza oraz konfiguracja danych
+# Import pliku "budzety2005.csv".
+# Zmienne jakościowe (np. stringi) są wczytywane jako "factors".
+obecny_katalog <- getwd()
+setwd(obecny_katalog)
+obecny_katalog <- paste0(obecny_katalog,"/budzety2005.csv")
+obecny_katalog
+ramka_danych_budzety2005 <- read.csv(obecny_katalog, stringsAsFactors=TRUE) 
+
+# Wstępna analiza danych przy użyciu funkcji str(), head(), tail(), summary() oraz sapply()
+str(ramka_danych_budzety2005)
+head(ramka_danych_budzety2005, 5)
+tail(ramka_danych_budzety2005, 5)
+summary(ramka_danych_budzety2005)
+print("Przy użyciu funkcji 'sapply();, listuję wszystkie poziomy we wszystkich kolumnach ramki danych:")
+sapply(ramka_danych_budzety2005, levels)
+
+# Analiza zmiennej "townsize" w ramce danych oraz re-konfiguracja jej poziomów ("levels")
+print(paste("Sprawdzam czy 'townsize' ma format 'factor':", is.factor(ramka_danych_budzety2005$townsize)))
+
+print("Wylistowanie pierwszych dziesięciu wartości faktora 'townsize' przed re-konfiguracją poziomów:")
+ramka_danych_budzety2005$townsize[1:10]
+
+print("Wylistowanie poziomów faktora 'townsize' przed ich re-konfiguracją:") 
+levels(ramka_danych_budzety2005$townsize)
+
+print("Rekonfiguracja poziomów faktora 'townsize':")
+
+ramka_danych_budzety2005$townsize <- plyr::revalue(ramka_danych_budzety2005$townsize, 
+                                             c("villages" = "Wioska", 
+                                               "town up to 19,999" = "Miasto do 19.999", 
+                                               "20,000  - 99,999" = "Miasto do 99.999",
+                                               "100,000 - 199,999" = "Miasto do 199.999",
+                                               "200,000 - 499,999" = "Miasto do 499.999",
+                                               "500,000 and over" = "Miasto ponad 500.000")
+                                             )
+
+print("Wylistowanie poziomów faktora 'townsize' po ich re-konfiguracji:") 
+levels(ramka_danych_budzety2005$townsize)
+
+print("Wylistowanie pierwszych dziesięciu wartości faktora 'townsize' po re-konfiguracji poziomów:")
+ramka_danych_budzety2005$townsize[1:10]
+```
+
+***
+
+#### Zestaw 3 - Podpunkty 2.1 i 2.2
+
+Oryginalna treść podpunktu 2.1:
+
+*"Wybrać zmienne: townsize, wojregion, totincGUS, totexpGUS, sex, age married, buildtype, flatsize i hoh."*
+
+Oryginalna treść podpunktu 2.2:
+
+*"Wprowadzić nowe nazwy zmiennych (wg uznania proszę przetłumaczyć owe odpowiedniki)"*
+
+Rozwiązanie podpunktów:
+
+```{r}
+okrojona_ramka_danych_budzety_2005 <- ramka_danych_budzety2005 %>%
+  select("Wielkosc_Miasta" = townsize, 
+         "Wojewodztwo" = wojregion,
+         "Przychody" = totincGUS,
+         "Wydatki" = totexpGUS,
+         "Plec" = sex,
+         "Wiek" = age,
+         "Stan_Cywilny" = married,
+         "Typ_Budynku" = buildtype,
+         "Powierzchnia_Mieszkania" = flatsize,
+         "Glowa_Rodziny" = hoh)
+summary(okrojona_ramka_danych_budzety_2005)
+```
+
+***
+
+#### Zestaw 3 - Podpunkt 2.3
+
+Oryginalna treść podpunktu 2.3:
+
+*"Wyfiltrować tylko te osoby, które mają dodatnie przychody i wydatki (zmienne: totincGUS, totexpGUS) oraz zmienna hoh przyjmuje wartość 1 (w ten sposób wyfiltrujemy tylko tzw. głowy rodziny."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+przefiltrowana_ramka_danych <- okrojona_ramka_danych_budzety_2005 %>%
+  filter(Przychody > 0, Wydatki > 0, Glowa_Rodziny == 1)
+head(przefiltrowana_ramka_danych,5)
+```
+
+***
+
+#### Zestaw 3 - Podpunkt 2.4
+
+Oryginalna treść podpunktu 2.4:
+
+*"Sprawdź, ile gospodarstw domowych mieszka danym województwie (użyć funkcji count()) oraz (osobno) ile osób mieszka w miejscowości każdej wielkości."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+liczba_gospodarstw_domowych_w_danym_wojewodztwie <- okrojona_ramka_danych_budzety_2005 %>%
+  count("Wojewodztwo")
+liczba_gospodarstw_domowych_w_danym_wojewodztwie
+
+liczba_osob_w_danej_miejscowosci <- okrojona_ramka_danych_budzety_2005 %>%
+  count("Wielkosc_Miasta")
+liczba_osob_w_danej_miejscowosci
+```
+
+***
+
+#### Zestaw 3 - Podpunkty 2.5 i 2.6
+
+Oryginalna treść podpunktu 2.5:
+
+*"Stworzyć zmienną oszczednosci, która jest zdefiniowana jako różnica między wydatkami i przychodem."*
+
+Oryginalna treść podpunktu 2.6:
+
+*"Stworzyć zmienną oszczednosci_proc, która opisze oszczędności jako procent przychodu."*
+
+Rozwiązanie podpunktów:
+
+Zmienną "Oszczedności" definiuję matematycznie jako: (Przychody - Wydatki)\
+Zmienną "Oszczednosci_Proc" definuję matematycznie jako: 100*(Przychody - Wydatki)/Przychody
+
+```{r}
+ramka_danych_z_dodatkowymi_zmiennymi <- okrojona_ramka_danych_budzety_2005 %>%
+  mutate(Oszczednosci = round(Przychody - Wydatki, 2), 
+         Oszczednosci_Proc = round((100*(Przychody - Wydatki)/Przychody), 2))
+head(ramka_danych_z_dodatkowymi_zmiennymi,5)
+```
+
+***
+
+#### Zestaw 3 - Podpunkt 2.7
+
+Oryginalna treść podpunktu 2.7:
+
+*"Wyznaczyć średnią i odchylenie standardowe (użyć odpowiednio funkcji mean() i sd()), by zapoznać się z charakterystyką wydatków w podziale na województwa lub wielkość miejsca zamieszkania (do wyboru jedno z nich)."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+# Obliczenia względem zmiennej "Wojewodztwo":
+srednia_oraz_odchylenie_standardowe_wydatkow_wzgledem_wojewodztw <- 
+  okrojona_ramka_danych_budzety_2005 %>% 
+  dplyr::group_by("Województwo" = Wojewodztwo, .add = TRUE) %>% 
+  dplyr::summarise("Średnia arytmetyczna" = mean(Wydatki), 
+                   "Odchylenie standardowe" = sd(Wydatki)) %>%
+  as.data.frame() %>%
+  dplyr::mutate_if(is.numeric, round, digits = 2)
+srednia_oraz_odchylenie_standardowe_wydatkow_wzgledem_wojewodztw
+
+# Obliczenia względem zmiennej "Wielkosc_Miasta":
+srednia_oraz_odchylenie_standardowe_wydatkow_wzgledem_wielkosci_miast <- 
+  okrojona_ramka_danych_budzety_2005 %>% 
+  dplyr::group_by("Wielkość miasta" = Wielkosc_Miasta, .add = TRUE) %>% 
+  dplyr::summarise("Średnia arytmetyczna" = mean(Wydatki), 
+                   "Odchylenie standardowe" = sd(Wydatki)) %>%
+  as.data.frame() %>%
+  dplyr::mutate_if(is.numeric, round, digits = 2)
+srednia_oraz_odchylenie_standardowe_wydatkow_wzgledem_wielkosci_miast
+```
+
+***
+
+#### Zestaw 3 - Podpunkt 2.8
+
+Oryginalna treść podpunktu 2.8:
+
+*"Wyświetlić po 3 najstarsze osoby w każdej klasie miejscowości."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+trzy_najstarsze_osoby_wzgledem_wielkosci_miast <- 
+  okrojona_ramka_danych_budzety_2005 %>% 
+  select(Wielkosc_Miasta, Wiek) %>%
+  dplyr::group_by(Wielkosc_Miasta) %>% 
+  dplyr::slice_max(order_by = Wiek, n = 3) %>%
+  as.data.frame() %>%
+  dplyr::mutate_if(is.numeric, round, digits = 2)
+colnames(trzy_najstarsze_osoby_wzgledem_wielkosci_miast) <- 
+  c("Wielkość miasta", "Wiek")
+trzy_najstarsze_osoby_wzgledem_wielkosci_miast
+```
+
+***
+
+#### Zestaw 3 - Podpunkt 2.9
+
+Oryginalna treść podpunktu 2.9:
+
+*"Narysować histogram (funkcja hist()) dla zmiennej age. Spróbować narysować go tak, by miał on 15 klas."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+okrojona_ramka_danych_budzety_2005 %>%
+  ggplot() +
+  geom_histogram(aes(x = Wiek), 
+                 bins = 15,
+                 fill = "palegreen3", colour = "blue", linewidth = 0.1) + 
+  theme_dark() +
+  labs(title = "20240407 - Histogram zmiennej 'Wiek' z 15 klasami", 
+       x = "Wiek [Lata]", y = "Liczba wystąpień w zbiorze")
+```
+
+***
+
+#### Zestaw 3 - Podpunkt 2.10
+
+Oryginalna treść podpunktu 2.10:
+
+*"Narysować wykres pudełkowy (funkcja boxplot()) dla zmiennej totincGUS względem zmiennej sex i townsize (dwa osobne rysunki)."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+# Wykres pudełkowy dla zmiennej: Przychody = f(Płeć)
+tytul_wykresu <- paste("20240407 - Wykres pudełkowy przychodów względem płci")
+okrojona_ramka_danych_budzety_2005 %>%
+  select(Plec,Przychody) %>%
+  ggplot(aes(x = Plec, y = Przychody)) +
+  geom_boxplot(aes(y = Przychody), color = "black") +
+  geom_jitter(height = 0.5, color = "red", size = 0.01) +
+  labs(title = tytul_wykresu,
+       x = "Płeć",
+       y = "Wartości przychodów [PLN]")
+
+# Wykres pudełkowy dla zmiennej: Przychody = f(Wielkość Miasta)
+tytul_wykresu <- paste("20240407 - Wykres pudełkowy przychodów względem wielkości miasta")
+okrojona_ramka_danych_budzety_2005 %>%
+  select(Wielkosc_Miasta,Przychody) %>%
+  ggplot(aes(x = Wielkosc_Miasta, y = Przychody)) +
+  geom_boxplot(aes(y = Przychody), color = "black") +
+  geom_jitter(height = 0.5, color = "red", size = 0.01) +
+  labs(title = tytul_wykresu,
+       x = "Wielkość miast",
+       y = "Wartości przychodów [PLN]") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+***
+
+#### Zestaw 3 - Podpunkt 2.11
+
+Oryginalna treść podpunktu 2.11:
+
+*"Narysować wykres punktowy (funkcja plot()) wydatków zględem dochodów."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+tytul_wykresu <- paste("20240407 - Wykres punktowy: Wydatki = f(Przychody)")
+okrojona_ramka_danych_budzety_2005 %>%
+  select(Wydatki, Przychody) %>%
+  ggplot(aes(y = Wydatki, x = Przychody)) + 
+  geom_point(color = "red", size = 0.1) +
+  labs(title = tytul_wykresu,
+       x = "Wartości przychodów [PLN]",
+       y = "Wartości wydatków [PLN]")
+```
+
+***
+
+#### Zestaw 3 - Podpunkt 2.12
+
+Oryginalna treść podpunktu 2.12:
+
+*"Pomyśl o kilku ciekawych pytaniach, na które możesz odpowiedzieć wykorzystując informację o typie posiadanej nieruchomości i jej wielkości. Zaprezentuj owe wyniki z wykorzystaniem poznanych funkcji."*
+
+Rozwiązanie podpunktu:
+
+```{r}
+# Krok 12.1 - Analiza oszczędnosci i zamiana dodatnich wartości oszczędności na wartość '1', a ujemnych wartości oszczędności na '0'. Innymi słowy, stosuję skalę porządkową dla danych 'Oszczędności' - zastępując wartości dodatnie wartością '1', a ujemne wartością '0'.
+ramka_danych_oszczednosci_vs_plec <- ramka_danych_z_dodatkowymi_zmiennymi %>%
+  select(Oszczednosci, Plec) %>%
+  mutate(Oszczednosci = case_when(Oszczednosci > 0 ~ 1, .default = 0))
+head(ramka_danych_oszczednosci_vs_plec,5)
+
+# Krok 12.2 - Test Chi-Square: sprawdzam czy istnieje zależność pomiędzy płcią, a oszczędnościami 'na plusie'... ;) 
+wartosci_testu <- chisq.test(as.numeric(ramka_danych_oszczednosci_vs_plec$Oszczednosci),
+           as.character(ramka_danych_oszczednosci_vs_plec$Plec),
+           simulate.p.value = TRUE)
+p_value_testu <- round(as.numeric(wartosci_testu[3]),2)
+
+# Krok 12.3 - Analiza wyników testu Chi-Square
+poziom_istotnosci <- 0.05
+if(p_value_testu > poziom_istotnosci)
+{
+  print(paste("Dla poziomu istotności",poziom_istotnosci,"oraz biorąc pod uwage wartość p-value testu statystycznego Chi-Kwadrat równą",p_value_testu,"stwierdzam, że brak jest podstaw do odrzucenia hipotezy zerowej. Innymi słowy, zdolność oszczędzania jest niezależna od płci. W tym przypadku, 'zdolność oszczędzania' definiowana jest jako dodatnie oszczędności."))
+}else
+{
+  print(paste("Dla poziomu istotności",poziom_istotnosci,"oraz biorąc pod uwage wartość p-value testu statystycznego Chi-Kwadrat równą",p_value_testu,"stwierdzam, że są podstawy do odrzucenia hipotezy zerowej. Innymi słowy, zdolność oszczędzania jest zależna od płci. W tym przypadku, 'zdolność oszczędzania' definiowana jest jako dodatnie oszczędności."))
+}
+```
+***
+
+## Literatura
+[1] - https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str
+
+[2] - https://www.r-project.org/help.html
+
+[3] - https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
+ 
+[4] - https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/Orange.html
+
+[5] - https://dplyr.tidyverse.org/
+
+[6] - https://search.r-project.org/CRAN/refmans/psych/html/describe.html
+
+[7] - https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/summary
+
+[8] - https://www.geeksforgeeks.org/r-lists/
+
+[9] - https://www.geeksforgeeks.org/if-else-if-statement-in-r/
+
+[10] - https://www.geeksforgeeks.org/loops-in-r-for-while-repeat/
+
+[11] - https://lubridate.tidyverse.org/
+
+[12] - https://lubridate.tidyverse.org/reference/days_in_month.html
