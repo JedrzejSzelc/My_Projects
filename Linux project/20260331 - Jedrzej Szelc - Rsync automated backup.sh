@@ -3,7 +3,7 @@
 #######################################################################
 ### Title:          	Automated rsync backup for Linux Ubuntu		###
 ### Bash command:		rsync_backup								###
-### Version:        	20260330                               		###
+### Version:        	20260331                               		###
 ### Creator:        	Jedrzej (Andrew) Szelc                 		###
 ### Maintainer:     	Jedrzej (Andrew) Szelc                 		###
 ### GitHub: 			https://github.com/JedrzejSzelc 			###
