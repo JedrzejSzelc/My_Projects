@@ -7,5 +7,5 @@
 
 # 2. This repository...
 
-... is a collection of various professional and personal projects in Python, Robotoframework, SQL and R languages.
+... is a collection of various professional and personal projects in Python, Robotoframework, SQL, R and some Linux bash scripts.
 (Just don't laugh at me, ok?!)
