@@ -57,7 +57,7 @@ integer_crop_top_edge_distance_pixels="${5:-15}"
 string_output_directory="processed_images"
 mkdir -p "$string_output_directory"
 
-### Batach processing of all .jpg images available within the current directory:
+### Batch processing of all .jpg images available within the current directory:
 for current_image_file in *.jpg; do
 	convert "$current_image_file" \
 	-crop "$integer_crop_output_width_pixels"x"$integer_crop_output_height_pixels"+"$integer_crop_left_edge_distance_pixels"+"$integer_crop_top_edge_distance_pixels" \
