@@ -9,8 +9,7 @@
 ### Maintainer:     	Jedrzej (Andrew) Szelc                 		###
 ### GitHub: 			https://github.com/JedrzejSzelc 			###
 ### Comments:       	works with .jpg files only.					###
-###						You can modify image crop settings			###
-###						or rotate angle.							###
+###						You can modify crop or rotate settings.		###
 #######################################################################
 
 ####################
