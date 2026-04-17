@@ -2,7 +2,7 @@
 
 #######################################################################
 ### Title:          	ImageMagick - images batch processing		###
-### Subtitle:			Rotate and crop.jpg images in batch			###
+### Subtitle:			Rotate and crop .jpg images in batch		###
 ### Bash command:		image_batch_rotate_crop						###
 ### Version:        	20260417                               		###
 ### Creator:        	Jedrzej (Andrew) Szelc                 		###
