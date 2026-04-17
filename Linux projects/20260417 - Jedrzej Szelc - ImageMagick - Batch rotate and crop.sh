@@ -3,7 +3,7 @@
 #######################################################################
 ### Title:          	ImageMagick - images batch processing		###
 ### Subtitle:			Crop and rotate .jpg images in batch		###
-### Bash command:		image_auto_crop_rotate						###
+### Bash command:		image_batch_rotate_crop						###
 ### Version:        	20260417                               		###
 ### Creator:        	Jedrzej (Andrew) Szelc                 		###
 ### Maintainer:     	Jedrzej (Andrew) Szelc                 		###
@@ -19,7 +19,7 @@
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
 
-	printf "Usage: image_auto_crop_rotate [OPTIONAL ARGUMENTS]\n"
+	printf "Usage: image_batch_rotate_crop [OPTIONAL ARGUMENTS]\n"
 	printf "Crops and rotates all .jpg images available within the current directory.\n"
 	printf "\n"
 	printf "Optional input arguments (to be provided without the \"-\" sign):\n"
@@ -30,8 +30,8 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
 	printf "\t5th argument - crop starting point in pixels from top edge (default: 15)\n"
 	printf "\n"
 	printf "Example:\n"
-	printf "\timage_auto_crop_rotate 90			- will rotate all images right by 90 degrees only.\n"
-	printf "\timage_auto_crop_rotate 45 800 600 50 100	- will rotate all images right by 45 degrees.\n"
+	printf "\timage_batch_rotate_crop 90			- will rotate all images right by 90 degrees only.\n"
+	printf "\timage_batch_rotate_crop 45 800 600 50 100	- will rotate all images right by 45 degrees.\n"
 	printf "\t 						  Will crop images starting 50 pixels from left and 100 from top.\n"
 	printf "\t 						  The output images will be 800 pixels wide and 600 pixels in height.\n"
 	exit 0
