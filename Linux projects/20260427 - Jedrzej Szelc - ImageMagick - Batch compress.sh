@@ -34,7 +34,7 @@ fi
 ### Variables and configuration ###
 ###################################
 
-### My default rotate and crop values:
+### Default values:
 integer_compression_factor_percent="${1:-25}"
 integer_quality_factor_percent=$((100-integer_compression_factor_percent))
 
@@ -46,7 +46,7 @@ integer_quality_factor_percent=$((100-integer_compression_factor_percent))
 string_output_directory="processed_images"_"$integer_compression_factor_percent"
 mkdir -p "$string_output_directory"
 
-### Batach processing of all .jpg images available within the current directory:
+### Batch processing of all .jpg images available within the current directory:
 for current_image_file in *.jpg; do
 	convert "$current_image_file" \
 	-quality "$integer_quality_factor_percent"% \
